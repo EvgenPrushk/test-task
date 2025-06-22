@@ -1,5 +1,5 @@
-import type { InputModel } from '@/entities/color';
-import type { Palette, Tone, TransformCallback, SubtoneMap } from './types';
+import type { ColorData, InputModel } from "@/entities/color";
+import type { Palette, Tone, TransformCallback, SubtoneMap } from "./types";
 
 export function createTone<
   T extends TransformCallback,
@@ -13,18 +13,27 @@ export function createTone<
 
 export function createPalette<
   TInput extends InputModel,
-  TConfig extends {
-    base: Tone<any, any>;
-    tones?: Record<string, Tone<any, any>>;
+  TBase extends TransformCallback,
+  TBaseOptions extends { name?: string; subtone?: SubtoneMap },
+  TBaseTone extends Tone<TBase, TBaseOptions>,
+  TTones extends Record<
+    string,
+    Tone<TransformCallback, { name?: string; subtone?: SubtoneMap }>
+  > = {}
+>(
+  input: TInput,
+  config: {
+    base: TBaseTone;
+    tones?: TTones;
   }
->(input: TInput, config: TConfig): Palette<TInput, TConfig> {
-  const palette: any = {};
+): Palette<TInput, typeof config> {
+  const palette: Record<string, Record<string, string>> = {};
 
   for (const colorKey in input) {
     const colorData = input[colorKey];
     palette[colorKey] = {
       ...colorData,
-      ...config.base(colorData),
+      ...config.base(colorData as ColorData),
     };
   }
 
@@ -36,17 +45,19 @@ export function createPalette<
 
       for (const colorKey in input) {
         const colorData = input[colorKey];
-        palette[`${colorKey}_${toneName}`] = tone(colorData);
+        palette[`${colorKey}_${toneName}`] = tone(colorData as ColorData);
 
         if (tone._subtones) {
           for (const subtoneKey in tone._subtones) {
             const subtoneTransform = tone._subtones[subtoneKey];
-            palette[`${colorKey}_${subtoneKey}_${toneName}`] = subtoneTransform(colorData);
+            palette[`${colorKey}_${subtoneKey}_${toneName}`] = subtoneTransform(
+              colorData as ColorData
+            );
           }
         }
       }
     }
   }
-
-  return palette;
+  console.log("palette", palette);
+  return palette as Palette<TInput, typeof config>;
 }

@@ -2,7 +2,7 @@ import type { InputModel } from "@/entities/color";
 import { createPalette, createTone } from "./../../features/palette-generator";
 
 const input = {
-  red: { main: "red", dark: "darkred", light: "#ffcccb", extra: "#D2122E" },
+  red: { main: "blue", dark: "darkred", light: "#ffcccb", extra: "#D2122E" },
   green: {
     main: "green",
     dark: "darkgreen",
@@ -41,6 +41,7 @@ const brightness = createTone(
     subtone: {
       low: (data) => ({ white: data.light }),
       medium: (data) => ({ shadow: data.main }),
+      ultra: (data) => ({ intensive: data.extra }),
     },
   }
 );
@@ -56,6 +57,7 @@ const depths = createTone(
     subtone: {
       "8-bit": (data) => ({ borderColor: data.main }),
       "16-bit": (data) => ({ anotherColor: data.light }),
+      "24-bit": (data) => ({ extraColor: data.extra }),
     },
   }
 );

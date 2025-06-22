@@ -18,30 +18,34 @@ export type Tone<
 export type Palette<
   TInput extends InputModel,
   TConfig extends {
-    base: Tone<any, any>;
-    tones?: Record<string, Tone<any, any>>;
+    base: Tone<TransformCallback, { name?: string; subtone?: SubtoneMap }>;
+    tones?: Record<string, Tone<TransformCallback, { name?: string; subtone?: SubtoneMap }>>;
   }
 > =
   {
     [ColorKey in keyof TInput]: TInput[ColorKey] & ReturnType<TConfig['base']>;
   } &
   UnionToIntersection<
-    {
-      [ToneKey in keyof TConfig['tones']]: {
-        [ColorKey in keyof TInput as `${ColorKey & string}_${TConfig['tones'][ToneKey]['_name'] & string}`]:
-          ReturnType<TConfig['tones'][ToneKey]>;
-      };
-    }[keyof TConfig['tones']]
+    TConfig['tones'] extends Record<string, string>
+      ? {
+          [ToneKey in keyof TConfig['tones']]: {
+            [ColorKey in keyof TInput as `${ColorKey & string}_${TConfig['tones'][ToneKey]['_name'] & string}`]:
+              ReturnType<TConfig['tones'][ToneKey]>;
+          };
+        }[keyof TConfig['tones']]
+      : {}
   > &
   UnionToIntersection<
-    {
-      [ToneKey in keyof TConfig['tones']]: UnionToIntersection<
-        {
-          [SubtoneKey in keyof TConfig['tones'][ToneKey]['_subtones']]: {
-            [ColorKey in keyof TInput as `${ColorKey & string}_${SubtoneKey & string}_${TConfig['tones'][ToneKey]['_name'] & string}`]:
-              ReturnType<TConfig['tones'][ToneKey]['_subtones'][SubtoneKey]>;
-          };
-        }[keyof TConfig['tones'][ToneKey]['_subtones']]
-      >;
-    }[keyof TConfig['tones']]
+    TConfig['tones'] extends Record<string, string>
+      ? {
+          [ToneKey in keyof TConfig['tones']]: UnionToIntersection<
+            {
+              [SubtoneKey in keyof TConfig['tones'][ToneKey]['_subtones']]: {
+                [ColorKey in keyof TInput as `${ColorKey & string}_${SubtoneKey & string}_${TConfig['tones'][ToneKey]['_name'] & string}`]:
+                  ReturnType<TConfig['tones'][ToneKey]['_subtones'][SubtoneKey]>;
+              };
+            }[keyof TConfig['tones'][ToneKey]['_subtones']]
+          >;
+        }[keyof TConfig['tones']]
+      : {}
   >;

@@ -2,11 +2,17 @@ import React from 'react';
 import { ColorGroup } from './../../../entities/color/ui/ColorGroup';
 
 interface PaletteDisplayProps {
-  palette: Record<string, any>;
+  palette: Record<string, Record<string, string>>
 }
-
-const groupPalette = (palette: Record<string, any>) => {
-  const grouped: Record<string, Record<string, any>> = {};
+const groupPalette = <
+  T extends Record<string, Record<string, string>>
+>(
+  palette: T
+): Record<
+  string,
+  Record<string, Record<string, string>>
+> => {
+  const grouped: Record<string, Record<string, Record<string, string>>> = {};
 
   for (const key in palette) {
     const baseColorName = key.split('_')[0];
@@ -16,6 +22,7 @@ const groupPalette = (palette: Record<string, any>) => {
     const itemTitle = key === baseColorName ? 'base' : key.replace(`${baseColorName}_`, '');
     grouped[baseColorName][itemTitle] = palette[key];
   }
+
   return grouped;
 };
 
