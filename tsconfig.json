@@ -26,9 +26,12 @@
         "name": "next"
       }
     ],
-    "baseUrl": "src",
-    "paths": {
-      "@/*": ["*"]
+    "baseUrl": ".",
+ "paths": {
+      "@entities/*": ["./src/entities/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@src/*": ["./*"],
+      "@~/*": ["./"]
     },
     "moduleResolution": "node"
   },

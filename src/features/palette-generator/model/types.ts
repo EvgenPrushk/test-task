@@ -1,5 +1,5 @@
-import type { ColorData, InputModel } from '@/entities/color';
-import type { UnionToIntersection } from '@/shared/types';
+import type { ColorData, InputModel } from '@entities/color';
+import type { UnionToIntersection } from '@shared/types';
 
 export type TransformCallback = (data: ColorData) => Record<string, string>;
 export type SubtoneMap = Record<string, TransformCallback>;

@@ -14,10 +14,12 @@ export const ColorSwatch: React.FC<ColorSwatchProps> = ({ name, colorValue }) =>
   }
 
   const textColor = getContrastColor(colorValue);
+  console.log('textColor', textColor)
+  console.log('colorValue', colorValue)
 
   const styles: React.CSSProperties = {
     backgroundColor: colorValue,
-    color: textColor,
+    color: '#000',
     padding: '1rem',
     borderRadius: '8px',
     fontFamily: 'monospace',

@@ -25,7 +25,7 @@ const groupPalette = <
   return grouped;
 };
 
-export const PaletteDisplay: React.FC<PaletteDisplayProps> = ({ palette }) => {
+export  const PaletteDisplay: React.FC<PaletteDisplayProps> = ({ palette }) => {
   const groupedPalette = groupPalette(palette);
 
   return (

@@ -1,4 +1,5 @@
-import type { ColorData, InputModel } from "@/entities/color";
+
+import type { ColorData, InputModel } from "@entities/color";
 import type { Palette, Tone, TransformCallback, SubtoneMap } from "./types";
 
 export function createTone<

@@ -1,4 +1,5 @@
-import type { InputModel } from "@/entities/color";
+
+import { InputModel } from "@entities/color";
 import { createPalette, createTone } from "./../../features/palette-generator";
 
 const input = {
