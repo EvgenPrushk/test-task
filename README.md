@@ -7,8 +7,8 @@
 1. Клонируйте репозиторий:
 
    ```
-   git clone https://github.com/dropmarket/mobile-app.git
-   cd mobile-app
+   git clone https://github.com/EvgenPrushk/test-task.git
+   cd test-task
    ```
 
 2. Установите зависимости:
