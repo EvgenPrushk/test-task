@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPalette with full input data should generate a complete palette matching the snapshot: full palette 1`] = `
+{
+  "blue": {
+    "background": "blue",
+    "dark": "darkblue",
+    "extra": "extrablue",
+    "light": "lightblue",
+    "main": "blue",
+  },
+  "blue_brightness": {
+    "foreground": "blue",
+  },
+  "blue_low_brightness": {
+    "white": "lightblue",
+  },
+  "red": {
+    "background": "red",
+    "dark": "darkred",
+    "extra": "extrared",
+    "light": "lightred",
+    "main": "red",
+  },
+  "red_brightness": {
+    "foreground": "red",
+  },
+  "red_low_brightness": {
+    "white": "lightred",
+  },
+}
+`;
+
+exports[`createPalette with partial or undefined input data should generate a correct partial palette matching the snapshot: partial palette 1`] = `
+{
+  "red": {
+    "background": "red",
+    "dark": "darkred",
+    "extra": "extrared",
+    "light": "lightred",
+    "main": "red",
+  },
+  "red_brightness": {
+    "foreground": "red",
+  },
+  "red_low_brightness": {
+    "white": "lightred",
+  },
+}
+`;

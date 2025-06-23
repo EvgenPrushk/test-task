@@ -14,30 +14,34 @@ export function createTone<
 
 export function createPalette<
   TInput extends InputModel,
-  TBase extends TransformCallback,
-  TBaseOptions extends { name?: string; subtone?: SubtoneMap },
-  TBaseTone extends Tone<TBase, TBaseOptions>,
-  TTones extends Record<
-    string,
-    Tone<TransformCallback, { name?: string; subtone?: SubtoneMap }>
-  > = {}
+  TConfig extends {
+    base: Tone<TransformCallback, any>;
+    tones?: Record<string, Tone<TransformCallback, any>>;
+  }
 >(
   input: TInput,
-  config: {
-    base: TBaseTone;
-    tones?: TTones;
-  }
-): Palette<TInput, typeof config> {
-  const palette: Record<string, Record<string, string>> = {};
+  config: TConfig
+): Palette<TInput, TConfig> {
+  const palette: Record<string, any> = {};
 
+  // --- Первый проход для базовых цветов ---
   for (const colorKey in input) {
-    const colorData = input[colorKey];
-    palette[colorKey] = {
-      ...colorData,
-      ...config.base(colorData as ColorData),
-    };
+    if (Object.prototype.hasOwnProperty.call(input, colorKey)) {
+      const colorData = input[colorKey as keyof TInput];
+
+      // ВАЖНАЯ ПРОВЕРКА: Пропускаем, если значение undefined
+      if (!colorData) {
+        continue;
+      }
+
+      palette[colorKey] = {
+        ...colorData,
+        ...config.base(colorData as ColorData),
+      };
+    }
   }
 
+  // --- Второй проход для тонов и подтонов ---
   if (config.tones) {
     for (const toneKey in config.tones) {
       const tone = config.tones[toneKey];
@@ -45,20 +49,27 @@ export function createPalette<
       if (!toneName) continue;
 
       for (const colorKey in input) {
-        const colorData = input[colorKey];
-        palette[`${colorKey}_${toneName}`] = tone(colorData as ColorData);
+        if (Object.prototype.hasOwnProperty.call(input, colorKey)) {
+          const colorData = input[colorKey as keyof TInput];
+          
+          // ВАЖНАЯ ПРОВЕРКА: Пропускаем и здесь
+          if (!colorData) {
+            continue;
+          }
 
-        if (tone._subtones) {
-          for (const subtoneKey in tone._subtones) {
-            const subtoneTransform = tone._subtones[subtoneKey];
-            palette[`${colorKey}_${subtoneKey}_${toneName}`] = subtoneTransform(
-              colorData as ColorData
-            );
+          palette[`${colorKey}_${toneName}`] = tone(colorData as ColorData);
+
+          if (tone._subtones) {
+            for (const subtoneKey in tone._subtones) {
+              const subtoneTransform = tone._subtones[subtoneKey];
+              palette[`${colorKey}_${subtoneKey}_${toneName}`] =
+                subtoneTransform(colorData);
+            }
           }
         }
       }
     }
   }
-  console.log("palette", palette);
-  return palette as Palette<TInput, typeof config>;
+  
+  return palette as Palette<TInput, TConfig>;
 }
