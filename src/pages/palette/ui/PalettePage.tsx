@@ -1,13 +1,16 @@
-import React from 'react';
-import { PaletteDisplay } from './../../../features/palette-generator/ui/PaletteDisplay';
-import { colors } from './../../../app/providers/colors';
+import React from "react";
+import { PaletteDisplay } from "./../../../features/palette-generator/ui/PaletteDisplay";
+import { colors } from "./../../../app/providers/colors";
+import s from "./PalettePage.module.scss";
 
-export const PalettePage: React.FC = () => {
+export const PalettePage = () => {
   return (
-    <div style={{ padding: '2rem' }}>
-      <header style={{ textAlign: 'center', marginBottom: '2rem' }}>
+    <div className={s.wrap}>
+      <header className={s.header}>
         <h1>Color Palette Management System</h1>
-        <p>A palette generated based on TypeScript logic and Feature-Sliced Design.</p>
+        <p>
+          Cпасибо тебе за уделенное время на проверку тестового задания
+        </p>
       </header>
       <main>
         <PaletteDisplay palette={colors} />
@@ -15,4 +18,3 @@ export const PalettePage: React.FC = () => {
     </div>
   );
 };
-

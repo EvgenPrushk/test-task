@@ -1,4 +1,4 @@
-export function getContrastColor(hexColor: string): '#FFF' | '#000' {
+export function getContrastColor(hexColor: string): string {
   if (!hexColor || !hexColor.startsWith('#')) {
     // Пытаемся обработать строковые цвета
     if (document.body.style.color !== undefined) {

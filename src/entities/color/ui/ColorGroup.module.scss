@@ -1,0 +1,15 @@
+.wrap {
+  margin-bottom: 2rem;
+}
+
+.colorTitle {
+  text-transform: capitalize;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.gridWrap {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}

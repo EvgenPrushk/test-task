@@ -1,5 +1,6 @@
 import React from 'react';
 import { ColorSwatch } from './../../../shared/ui/ColorSwatch';
+import s from './ColorGroup.module.scss';
 
 interface ColorGroupProps {
   title: string;
@@ -8,12 +9,12 @@ interface ColorGroupProps {
 
 export const ColorGroup: React.FC<ColorGroupProps> = ({ title, colors }) => {
   return (
-    <div style={{ marginBottom: '2rem' }}>
-      <h3 style={{ textTransform: 'capitalize', borderBottom: '1px solid #eee', paddingBottom: '0.5rem' }}>
+    <div className={s.wrap}>
+      <h3 className={s.colorTitle}>
         {title.replace(/_/g, ' ')}
       </h3>
     
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem' }}>
+      <div className={s.gridWrap}>
         {Object.entries(colors).map(([name, value]) => (
           <ColorSwatch key={name} name={name} colorValue={value} />
         ))}
