@@ -1,4 +1,4 @@
-export type ColorsUnion = 'red' | 'green' | 'blue' | 'yellow' | 'orange';
+export type ColorsUnion = 'red' | 'green' | 'blue' | 'yellow';
 
 export type ColorData = {
   main: string;

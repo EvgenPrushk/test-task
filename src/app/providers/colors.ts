@@ -2,36 +2,35 @@ import type { InputModel } from "@/entities/color";
 import { createPalette, createTone } from "./../../features/palette-generator";
 
 const input = {
-  red: { main: "blue", dark: "darkred", light: "#ffcccb", extra: "#D2122E" },
+  red: {
+    main: "red",
+    dark: "darkred",
+    light: "lightred",
+    extra: "extrared",
+  },
   green: {
     main: "green",
     dark: "darkgreen",
     light: "lightgreen",
-    extra: "#00A36C",
+    extra: "extragreen",
   },
   blue: {
     main: "blue",
     dark: "darkblue",
     light: "lightblue",
-    extra: "#0047AB",
+    extra: "extrablue",
   },
   yellow: {
     main: "yellow",
-    dark: "#CCCC00",
-    light: "#ffffed",
-    extra: "#FDDA0D",
-  },
-  orange: {
-    main: "orange",
-    dark: "#CC5500",
-    light: "#fff4e6",
-    extra: "#FFA500",
+    dark: "darkyellow",
+    light: "lightyellow",
+    extra: "extrayellow",
   },
 } satisfies InputModel;
 
 const baseColors = createTone((data) => ({
   background: data.main,
-  color: data.light,
+  color: data.main,
 }));
 
 const brightness = createTone(
@@ -41,6 +40,11 @@ const brightness = createTone(
     subtone: {
       low: (data) => ({ white: data.light }),
       medium: (data) => ({ shadow: data.main }),
+      high: (data) => ({
+        someProp: "transparent",
+        anotherProp: "#fff",
+        thirdCustomProp: data.main,
+      }),
       ultra: (data) => ({ intensive: data.extra }),
     },
   }
@@ -56,7 +60,10 @@ const depths = createTone(
     name: "depth",
     subtone: {
       "8-bit": (data) => ({ borderColor: data.main }),
-      "16-bit": (data) => ({ anotherColor: data.light }),
+      "16-bit": (data) => ({
+        borderColor: data.main,
+        anotherColor: data.light,
+      }),
       "24-bit": (data) => ({ extraColor: data.extra }),
     },
   }
