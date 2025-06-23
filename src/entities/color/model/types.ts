@@ -7,4 +7,4 @@ export type ColorData = {
   extra: string;
 };
 
-export type InputModel = Record<ColorsUnion, ColorData>;
+export type InputModel = Partial<Record<ColorsUnion, ColorData>>;
