@@ -1,0 +1,63 @@
+# Compiled output
+/**/dist
+/out-tsc
+tmp
+
+# Dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+/.sass-cache
+/.vscode/*
+!/.vscode/extensions.json
+!/.vscode/launch.json
+!/.vscode/settings.json
+!/.vscode/tasks.json
+.c9/
+.classpath
+.project
+.settings/
+*.launch
+*.sublime-workspace
+
+# Misc
+.DS_Store
+.env
+.history/
+.husky/prepare-commit-msg
+.next
+.sentryclirc
+Thumbs.db
+connect.lock
+coverage
+libpeerconnection.log
+npm-debug.log
+storybook-static
+testem.log
+typings
+yarn-error.log
+
+# Next.js
+.next
+next-env.d.ts
+
+# Sentry
+**/*/.sentryclirc
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Temporary and build files
+*.log
+*.tsbuildinfo
+public/auth.mov
+
+# Testing
+e2e/cypress/snapshot
+e2e/cypress/snapshots
+
+# VS Code specific
+.history/
+.vscode/
