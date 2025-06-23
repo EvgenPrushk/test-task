@@ -70,6 +70,7 @@ export function createPalette<
       }
     }
   }
-  
+
+  console.log('Palette',palette)
   return palette as Palette<TInput, TConfig>;
 }
